@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap');
+
+* {padding: 0; margin: 0; box-sizing: box-shadow; font-family: 'Rubik', sans-serif;}
+
+#uii {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.playerStats {
+    position: relative;
+    top: -5px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-weight: 500;
+    font-size: 12px;
+    color: white;
+    min-width: 42em;  /* Laajennettu leveys */
+    width: fit-content;
+    height: 0.05em;
+    background-color: var(--yla-color, rgba(6, 12, 6, 0.6)); 
+    padding: 17.5px;
+    border-radius: 0px 0px 8px 8px;
+}
+
+.stat {
+    color: rgb(255, 255, 255);
+    display: flex;
+    align-items: center;
+    margin-right: 20px;  /* Lisää tilaa elementtien välille */
+}
+
+.stat .icon {
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    position: relative;
+    display: inline-block;
+    margin-right: 8px;  /* Lisää tilaa ikonille */
+}
+
+.stat .icon i, .stat .icon img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
