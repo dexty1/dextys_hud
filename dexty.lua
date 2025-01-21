@@ -1,56 +1,48 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 
 if GetCurrentResourceName() ~= "dextys_hud" then
-    print("The folder name must be dextys_hud!")
+    print("Kansion nimen oltava dextys_hud!")
     return
 end
 
+
 Citizen.CreateThread(function()
+    -- Odotetaan, että pelaajan data on ladattu
     while true do
-        Citizen.Wait(1000) 
+        Citizen.Wait(1000)
 
         local playerData = QBCore.Functions.GetPlayerData()
 
-        if playerData then
-            local cash = playerData.money['cash']  -- Käteinen
-            local bank = playerData.money['bank']  -- Pankkitili
-            local job = playerData.job.name  -- Työ
-            local jobLabel = playerData.job.label  -- Työn nimi
-            local gang = playerData.gang.name  -- Jengi (jos on)
+        if playerData and playerData.money then
+            local cash = playerData.money['cash'] or 0  -- Käteinen, jos ei ole, asetetaan 0
+            local bank = playerData.money['bank'] or 0  -- Pankkitili, jos ei ole, asetetaan 0
+            local job = playerData.job.name or "Työtön"  -- Työ, jos ei ole, asetetaan "Työtön"
+            local jobLabel = playerData.job.label or "Työtön"  -- Työn nimi
+            local jobGrade = playerData.job.grade.name or ""  -- Työn arvo, esimerkiksi "Johtaja"
 
+            -- Yhdistetään työ ja arvo
+            local jobTitle = jobLabel
+            if jobGrade ~= "" then
+                jobTitle = jobTitle .. " - " .. jobGrade  -- Lisää työn arvo, esim. "Johtaja"
+            end
+
+            -- Päivitetään HUD:n tiedot
             SendNUIMessage({
                 action = "setValue",
                 key = "cash",
-                value = "$" .. tostring(cash)  -- Varmistetaan, että cash on merkkijono
+                value = "$" .. tostring(cash)
             })
             SendNUIMessage({
                 action = "setValue",
                 key = "bankmoney",
-                value = "$" .. tostring(bank)  -- Varmistetaan, että bank on merkkijono
+                value = "$" .. tostring(bank)
             })
+            -- Lähetetään yhdistetty työ ja arvo
             SendNUIMessage({
                 action = "setValue",
                 key = "job",
-                value = "Työ - " .. tostring(jobLabel)  -- Varmistetaan, että jobLabel on merkkijono
+                value = jobTitle  -- Lähetetään yhdistetty työ ja arvo
             })
-
-            -- Lähetetään jengi tiedot vain, jos jengi on olemassa
-            if gang and gang ~= "" then
-                SendNUIMessage({
-                    action = "setValue",
-                    key = "gang",
-                    value = "Jengi - " .. tostring(gang)  -- Varmistetaan, että gang on merkkijono
-                })
-                SendNUIMessage({
-                    action = "showGang",
-                    show = true
-                })
-            else
-                SendNUIMessage({
-                    action = "showGang",
-                    show = false
-                })
-            end
         end
     end
 end)
