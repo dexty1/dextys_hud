@@ -48,3 +48,36 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+
+.stat #grade {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+.stat #grade .icon {
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    position: relative;
+    display: inline-block;
+    margin-right: 8px;
+}
+
+
+#job span {
+    font-weight: bold;
+    color: #ffffff;  /* Asetetaan kultainen väri, mutta voit vaihtaa sen tarpeen mukaan */
+}
+
+.stat .icon i {
+    font-size: 16px;  /* Pienennetään kuvakkeiden kokoa hieman */
+}
+
+.stat #job {
+    display: flex;
+    align-items: center;
+    font-size: 14px;  /* Asetetaan suurempi fonttikoko työlle */
+    color: #ffffff;   /* Asetetaan kultainen väri työn tekstille */
+}
