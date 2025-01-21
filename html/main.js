@@ -1,13 +1,11 @@
-// main.js
-
 window.addEventListener('message', function(event) {
     if (event.data.action == "setValue") {
         // Tarkistetaan, että tiedot tulevat oikeassa muodossa
         if (event.data.key == "job") {
             setJobIcon(event.data.value);
-        } 
+        }
         setValue(event.data.key, event.data.value);
-    } 
+    }
 });
 
 function setValue(key, value) {
@@ -20,30 +18,15 @@ function setValue(key, value) {
     } else if (key == "bankmoney") {
         $('#bankmoney span').html(value);
     } else if (key == "job") {
-        $('#job span').html(value);  // Päivitetään työ
-    } else if (key == "gang") {
-        $('#gang span').html(value);  // Jengi
+        $('#job span').html(value);  // Päivitetään työ ja arvo
+    } else if (key == "grade") {
+        $('#grade span').html(value);  // Päivitetään työarvo
     }
 }
 
 function setJobIcon(job) {
-    var jobIcon = 'img/jobs/' + job + '.png';  // Oletetaan, että kuvat ovat kansiossa img/jobs
-    $('#job img').attr('src', jobIcon);  // Päivitetään työn ikoni
-}
-
-window.addEventListener("message", function(event) {
-    if (event.data.type === "PaivitaAlaVari") {
-        document.documentElement.style.setProperty("--ala-color", hexToRgba(event.data.alaColor, event.data.alaOpacity));
+    var jobIcon = 'img/jobs/' + job.split(' ')[0].toLowerCase() + '.png';
+    if ($('#job img').length) {  // Varmistetaan, että kuvaelementti on olemassa
+        $('#job img').attr('src', jobIcon);
     }
-
-    if (event.data.type === "PaivitaYlaVari") {
-        document.documentElement.style.setProperty("--yla-color", hexToRgba(event.data.ylaColor, event.data.ylaOpacity));
-    }
-});
-
-function hexToRgba(hex, alpha) {
-    const r = parseInt(hex.substring(1, 3), 16);
-    const g = parseInt(hex.substring(3, 5), 16);
-    const b = parseInt(hex.substring(5, 7), 16);
-    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
