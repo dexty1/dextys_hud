@@ -1,11 +1,9 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 
-
 if GetCurrentResourceName() ~= "dextys_hud" then
-    print("The folder name must be dextys_hud!")
+    print("Kansion nimi oltava dextys_hud!")
     return
 end
-
 
 RegisterCommand('giveMoney', function(source, args, rawCommand)
     local player = QBCore.Functions.GetPlayer(source)
@@ -16,7 +14,6 @@ RegisterCommand('giveMoney', function(source, args, rawCommand)
     end
 end, false)
 
--- Asetetaan pelaajalle työ komennolla:
 RegisterCommand('setJob', function(source, args, rawCommand)
     local player = QBCore.Functions.GetPlayer(source)
     local job = args[1] or 'unemployed'  -- Asetetaan työ "työtön", jos ei anneta arvoa
